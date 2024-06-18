@@ -17,7 +17,7 @@ class UDPRemetente {
         if (this.portaOrigem) {
             this.cliente.bind(this.portaOrigem);
         }
-        this.cliente.on('mensagem', (msg) => this.handleAck(msg));
+        this.cliente.on('message', (msg) => this.handleAck(msg));
     }
     send(data) {
         const pacote = new Pacote_1.Pacote(this.numeroSequencia, data);
