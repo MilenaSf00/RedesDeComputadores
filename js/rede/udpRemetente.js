@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UDPRemetente = void 0;
 const dgram_1 = __importDefault(require("dgram"));
 const Pacote_1 = require("../Pacote");
-const MAX_RETRIES = 4;
+const MAX_RETRIES = 5;
 class UDPRemetente {
     
     constructor(host, portaDestino, portaOrigem) {
