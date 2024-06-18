@@ -16,6 +16,11 @@ class UDPDestinatario {
     }
     handleMessage(msg, rinfo) {
         const Pacote = JSON.parse(msg.toString());
+
+        // if (Math.random() < 0.2) {
+        //     console.log(`Pacote de número de sequência ${pacote.numeroSequencia} ignorado para simulação de congestionamento.`);
+        //     return;
+        // }
         if (Pacote.numeroSequencia === this.numeroSequenciaEsperado) {
             console.log(`Pacote recebido: ${Pacote.dado}`);
             this.sendAck(Pacote.numeroSequencia, rinfo);

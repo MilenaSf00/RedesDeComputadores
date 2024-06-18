@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UDPRemetente = void 0;
 const dgram_1 = __importDefault(require("dgram"));
 const Pacote_1 = require("../Pacote");
-const MAX_PACOTES_ENVIADOS = 100;
-const MAX_RETRIES = 5;
+const MAX_RETRIES = 4;
 class UDPRemetente {
     
     constructor(host, portaDestino, portaOrigem) {
@@ -33,8 +32,6 @@ class UDPRemetente {
                 console.error(err);
             console.log(`O pacote de número de sequência ${this.numeroSequencia} foi enviado com sucesso.`);
             this.numeroSequencia++;
-
-            
         });
         this.waitForAck(pacote);
     }
@@ -70,5 +67,12 @@ class UDPRemetente {
             this.waitForAck(pacote);
         });
     }
+    // startSending() {
+
+    //     for (let i = 0; i < 50; i++) {
+    //         this.send(`Mensagem ${i}`);
+    //     }
+    // }
+
 }
 exports.UDPRemetente = UDPRemetente;
