@@ -1,4 +1,3 @@
-// src/UDPReceiver.ts
 import dgram from 'dgram';
 import { Pacote } from '../Pacote';
 
@@ -27,7 +26,7 @@ export class UDPDestinatario {
         const ack = Buffer.from(numeroSequencia.toString());
         this.server.send(ack, rinfo.port, rinfo.address, (err) => {
             if (err) console.error(err);
-            console.log(`Sent ACK for sequence number: ${numeroSequencia}`);
+            console.log(`ACK enviado para pacote de número de sequência igual à: ${numeroSequencia}`);
         });
     }
 }

@@ -23,12 +23,13 @@ export class UDPRemetente {
             console.log(`O pacote de número de sequência ${this.numeroSequencia} foi enviado com sucesso.`);
             this.numeroSequencia++;
         });
-
+        // Acknowledgment
         this.waitForAck(pacote);
     }
 
     private waitForAck(pacote: Pacote): void {
         setTimeout(() => {
+            // se o pacote ainda está mapeado, ou seja, ainda não recebeu msg ack de que foi recebido
             if (this.pacotesEnviadosMap.has(pacote.numeroSequencia)) {
                 this.resendpacote(pacote);
             }
@@ -39,7 +40,7 @@ export class UDPRemetente {
         const ack = parseInt(msg.toString());
         if (this.pacotesEnviadosMap.has(ack)) {
             this.pacotesEnviadosMap.delete(ack);
-            console.log(`Received ACK for sequence number: ${ack}`);
+            console.log(`ACK recebido do pacote de número de sequência igual à: ${ack}`);
         }
     }
 
@@ -47,7 +48,7 @@ export class UDPRemetente {
         const mensagem = Buffer.from(JSON.stringify(pacote));
         this.cliente.send(mensagem, this.portaDestino, this.host, (err) => {
             if (err) console.error(err);
-            console.log(`Resent pacote with sequence number: ${pacote.numeroSequencia}`);
+            console.log(`Reenvio de pacote de número de sequência igual à: ${pacote.numeroSequencia}`);
             this.waitForAck(pacote);
         });
     }
