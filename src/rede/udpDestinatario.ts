@@ -1,5 +1,5 @@
 // src/UDPReceiver.ts
-import dgram from 'dgram';
+import * as dgram from 'dgram'; // Importar dgram usando require() ao invés de import
 import { Pacote } from '../Pacote';
 
 export class UDPDestinatario {
@@ -8,18 +8,18 @@ export class UDPDestinatario {
 
     constructor(private porta: number) {
         this.server = dgram.createSocket('udp4');
-        this.server.on('mensagem', (msg, rinfo) => this.handleMessage(msg, rinfo));
+        this.server.on('message', (msg, rinfo) => this.handleMessage(msg, rinfo)); // Corrigido 'mensagem' para 'message'
         this.server.bind(this.porta);
     }
 
     private handleMessage(msg: Buffer, rinfo: dgram.RemoteInfo): void {
-        const Pacote: Pacote = JSON.parse(msg.toString());
-        if (Pacote.numeroSequencia === this.numeroSequenciaEsperado) {
-            console.log(`Pacote recebido: ${Pacote.dado}`);
-            this.sendAck(Pacote.numeroSequencia, rinfo);
+        const pacote: Pacote = JSON.parse(msg.toString()); // Corrigido 'Pacote' para 'pacote'
+        if (pacote.numeroSequencia === this.numeroSequenciaEsperado) {
+            console.log(`Pacote recebido: ${pacote.dado}`);
+            this.sendAck(pacote.numeroSequencia, rinfo);
             this.numeroSequenciaEsperado++;
         } else {
-            console.log(`Pacote de número de sequência ${Pacote.numeroSequencia} recebido fora da ordem.`);
+            console.log(`Pacote de número de sequência ${pacote.numeroSequencia} recebido fora da ordem.`);
         }
     }
 
