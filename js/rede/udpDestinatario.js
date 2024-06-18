@@ -11,7 +11,7 @@ class UDPDestinatario {
         this.porta = porta;
         this.numeroSequenciaEsperado = 0;
         this.server = dgram_1.default.createSocket('udp4');
-        this.server.on('mensagem', (msg, rinfo) => this.handleMessage(msg, rinfo));
+        this.server.on('message', (msg, rinfo) => this.handleMessage(msg, rinfo));
         this.server.bind(this.porta);
     }
     handleMessage(msg, rinfo) {
